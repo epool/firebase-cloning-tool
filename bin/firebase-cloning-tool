@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'firebase/cloning/tool'
+
+Firebase::Cloning::Tool.clone_firebase_remote_config
