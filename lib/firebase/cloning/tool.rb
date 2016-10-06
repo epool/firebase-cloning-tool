@@ -40,7 +40,9 @@ module Firebase
 
       def self.go_to_settings
         puts 'Going to project settings...'
-        Capybara.find('.md-button.md-gmp-blue-theme.md-ink-ripple.md-icon-button').click
+        wait_until_xpath_present('//button[@aria-label="Settings" and contains(@class, "md-icon-button")]')
+        Capybara.find(:xpath, '//button[@aria-label="Settings" and contains(@class, "md-icon-button")]').click
+        wait_until_xpath_present('//button[@ng-click="controller.navEntryClick(controller.settings)"]')
         Capybara.find(:xpath, '//button[@ng-click="controller.navEntryClick(controller.settings)"]').click
         wait_until_xpath_present('//span[@ng-if="::controller.webApiKey"]')
         puts 'Project settings loaded.'
