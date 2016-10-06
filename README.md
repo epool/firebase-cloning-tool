@@ -2,8 +2,6 @@
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/firebase/cloning/tool`. To experiment with that code, run `bin/console` for an interactive prompt.
 
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,7 +20,20 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Just run `firebase-cloning-tool` on a terminal and provide the required information.
+
+    $ firebase-cloning-tool
+
+You will be asked for:
+
+    $ Email: [write your firebase console email]
+    $ Password: [write your firebase console password]
+    $ Source(Project Name, Case sensitive): [Project that will be cloned, this is case sensitive]
+    $ Destination(New Project Name, Case sensitive, Only letters, numbers, spaces, and these characters: -!'") : [Name for the new firebase project]
+
+### NOTE
+
+This script doesn't save nor share any data or password, just use the data for accessing to [firebase console](console.firebase.google.com).
 
 ## Development
 
@@ -32,7 +43,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/firebase-cloning-tool.
+Bug reports and pull requests are welcome on GitHub at https://github.com/epool/firebase-cloning-tool.
 
 
 ## License
