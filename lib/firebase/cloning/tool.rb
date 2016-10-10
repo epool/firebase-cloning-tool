@@ -48,13 +48,13 @@ module Firebase
         puts 'Project settings loaded.'
       end
 
-      def self.update_web_api_key(remoteConfigValues)
-        if !remoteConfigValues.key?('firebase_web_api_key')
+      def self.update_web_api_key(remote_config_values)
+        if !remote_config_values.key?('firebase_web_api_key')
           return
         end
         puts 'Updating web api key...'
         web_api_key = Capybara.find(:xpath, '//span[@ng-if="::controller.webApiKey"]').text
-        remoteConfigValues['firebase_web_api_key'] = web_api_key
+        remote_config_values['firebase_web_api_key'] = web_api_key
         puts 'Web api key updated.'
       end
 
@@ -76,7 +76,7 @@ module Firebase
         puts 'Project ' + project_name + ' loaded.'
       end
 
-      def self.go_to_remote_config()
+      def self.go_to_remote_config
         puts 'Going to remote config...'
         Capybara.find('.c5e-entry-displayname', :text => 'Remote Config').first(:xpath,".//..").click
 
@@ -96,18 +96,18 @@ module Firebase
 
       def self.copy_remote_config
         puts 'Copying remote config to memory...'
-        remoteConfigValues = {}
+        remote_config_values = {}
         Capybara.all('.r10g-param-row.layout-xs-column.layout-row.flex').each {
           |element|
-          remoteConfigValues[element.find('.r10g-codefont.r10g-param-row-key.fb-highlightable').text()] = element.find('.chip-value.fb-highlightable').text()
+          remote_config_values[element.find('.r10g-codefont.r10g-param-row-key.fb-highlightable').text()] = element.find('.chip-value.fb-highlightable').text()
         }
         puts 'Remote config copied.'
-        return remoteConfigValues
+        return remote_config_values
       end
 
-      def self.paste_remote_config(remoteConfigValues)
+      def self.paste_remote_config(remote_config_values)
         puts 'Pasting remote config from memory...'
-        remoteConfigValues.each do | key, value |
+        remote_config_values.each do | key, value |
           Capybara.find(:xpath, '//input[@name="paramKey"]').set key
           Capybara.find(:xpath, '//input[@ng-model="property:controller.valueOption.value"]').set value
           if Capybara.all(:xpath, '//button[@ng-click="controller.addParameter($event)"]').any?
@@ -152,9 +152,9 @@ module Firebase
         do_login(email, password)
 
         go_to_project(source_project)
-        go_to_remote_config()
+        go_to_remote_config
 
-        remoteConfigValues = copy_remote_config()
+        remote_config_values = copy_remote_config
         Capybara.visit 'https://console.firebase.google.com/'
         wait_until_selector_present('div.c5e-landing-welcome-existing-projects-title')
 
@@ -164,14 +164,14 @@ module Firebase
           go_to_project(destination_project)
         end
 
-        go_to_settings()
-        update_web_api_key(remoteConfigValues)
-        go_to_remote_config()
+        go_to_settings
+        update_web_api_key(remote_config_values)
+        go_to_remote_config
 
-        paste_remote_config(remoteConfigValues)
+        paste_remote_config(remote_config_values)
 
-        publish_changes()
-        go_to_settings()
+        publish_changes
+        go_to_settings
 
         puts 'Project cloned successfully!!!'
       end
