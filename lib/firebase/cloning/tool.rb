@@ -158,7 +158,7 @@ module Firebase
         Capybara.default_driver = :chrome_driver
 
         Capybara.visit 'https://console.firebase.google.com/'
-        do_login("eduardo.alejandro.pool.ake@gmail.com", password)
+        do_login(email, password)
 
         go_to_project(source_project)
         go_to_remote_config
